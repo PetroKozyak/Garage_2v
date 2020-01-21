@@ -1,0 +1,38 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Назва</th>
+        <th scope="col">Кількість</th>
+        <th scope="col">Ціна</th>
+        <th scope="col">Загалом</th>
+        {% if cart_active %}
+            <th scope="col">Delete</th>
+        {% endif %}
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in cart.items.all %}
+        <tr>
+            <td>{{ item }}</td>
+            <td><input type="text" size="8" data-item-id="{{ item.id }}" class="itemQuantity" value="{{ item.count_items }}">
+            </td>
+            <td>{{ item.dish.price }} грн.</td>
+            <td id="total">{{ item.total_price }} грн.</td>
+            {% if cart_active %}
+                <td>
+                    <input type="button" data-item-id="{{ item.id }}" class="btn btn-danger itemDelete" value="Delete">
+                </td>
+            {% endif %}
+
+
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="3"><strong>Загальна ціна</strong></td>
+        <td>{{ cart.total_price }} грн.</td>
+    </tr>
+    </tbody>
+</table>
+

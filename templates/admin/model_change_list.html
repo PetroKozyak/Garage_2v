@@ -1,0 +1,8 @@
+{% extends 'admin/change_list.html' %}
+{% block object-tools %}
+    <form action="update_menu/" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Update Menu" id='script' name="scriptbutton">
+    </form>
+    {{ block.super }}
+{% endblock %}

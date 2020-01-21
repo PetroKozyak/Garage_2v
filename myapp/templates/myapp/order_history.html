@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div id="container">
+        <div id="nav">
+            <table class="table">
+                <thead>
+                <th scope="col">#</th>
+                <th scope="col">Дані</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Користувач:</td>
+                    <td>{{ request.user }} </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="aside">
+        {% for order in orders %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <div>{{ order.data_create }}</div>
+                    <th scope="col">Назва</th>
+                    <th scope="col">Кількість</th>
+                    <th scope="col">Ціна</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in order.order_item.all %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td>{{ item.qty }}</td>
+                        <td>{{ item.dish.price }} грн.</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"><strong>Загальна ціна</strong></td>
+                    <td>{{ order.total_price }} грн.</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

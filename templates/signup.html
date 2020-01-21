@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h2>Реєстрація</h2>
+            <form method="post">
+                {% csrf_token %}
+
+
+                <div class="input-group mb-3">
+                    <div style=" width: 100%; ">
+                        <input type="text" class="form-control" placeholder="Username" id="id_username"
+                               name="{{ form.username.html_name }}" value="{{ request.POST.username }}">
+                    </div>
+                    <span class="field_error" style="color: red">{{ form.username.errors.as_text }}</span>
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div style=" width: 100%; ">
+                        <input type="email" class="form-control" placeholder="Email" id="id_email"
+                               name="{{ form.email.name }}" value="{{ request.POST.email }}">
+                    </div>
+                    <span class="field_error" style="color: red">{{ form.email.errors.as_text }}</span>
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div style=" width: 100%; ">
+                        <input type="password" class="form-control" placeholder="Password" id="id_password1"
+                               name="{{ form.password1.name }}" value="{{ request.POST.password1 }}">
+                    </div>
+                    <span class="field_error" style="color: red">{{ form.password1.errors.as_text }}</span>
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div style=" width: 100%; ">
+                        <input type="password" class="form-control" placeholder="Password confirmation"
+                               id="id_password2"
+                               name="{{ form.password2.name }}" value="{{ request.POST.password2 }}">
+                    </div>
+                    <span class="field_error" style="color: red">{{ form.password2.errors.as_text }}</span>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div style=" width: 100%; ">
+                        <input type="text" class="form-control" placeholder="First Name" id="id_first_name"
+                               name="{{ form.first_name.name }}" value="{{ request.POST.first_name }}">
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div style=" width: 100%; ">
+                        <input type="text" class="form-control" placeholder="Last Name" id="id_last_name"
+                               name="{{ form.last_name.name }}" value="{{ request.POST.last_name }}">
+                    </div>
+                </div>
+
+
+                <button class="btn btn-primary" type="submit">Зареєструватися</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+

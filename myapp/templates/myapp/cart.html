@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" id="cartForm" action="{% url "order_create" %}">
+
+        {% csrf_token %}
+        {% include 'includes/item_table.html'  %}
+        {% if request.user.profile.get_cart.active %}
+            <button class="btn btn-success" type="submit">Створити замовлення</button>
+        {% endif %}
+
+    </form>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $('body').on('change', ".itemQuantity", function (e) {
+            var itemId = $(this).data('item-id');
+            var itemValue = $(this).val();
+            $.ajax({
+                url: "{% url 'item_update' %}",
+                method: "POST",
+                data: {
+                    itemId: itemId,
+                    itemValue: itemValue,
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
+                },
+            }).done(function (response) {
+                $("#cartForm table").remove();
+                $("#cartForm").append(response);
+            }).fail(function (jqXHR, textStatus) {
+                console.log('error');
+            });
+
+        });
+
+        $('body').on('click', ".itemDelete", function (e){
+            var itemId = $(this).data('item-id');
+            $.ajax({
+                url: "{% url 'delete_cart_item' %}",
+                method: "POST",
+                data: {
+                    itemId: itemId,
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
+                },
+            }).done(function (response) {
+                $("#cartForm table").remove();
+                $("#cartForm").append(response);
+            }).fail(function (jqXHR, textStatus) {
+                console.log('error');
+            });
+        });
+    </script>
+{% endblock %}
