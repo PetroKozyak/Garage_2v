@@ -2,3 +2,5 @@
 venv
 db.sqlite3
 /media
+/garage_v2/local_settings.py
+sendgrid.env

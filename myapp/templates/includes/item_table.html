@@ -16,7 +16,14 @@
     {% for item in cart.items.all %}
         <tr>
             <td>{{ item }}</td>
-            <td><input type="text" size="8" data-item-id="{{ item.id }}" class="itemQuantity" value="{{ item.count_items }}">
+
+            <td>
+                {% if cart_active %}
+                <input type="text" size="8" data-item-id="{{ item.id }}" class="itemQuantity" value="{{ item.count_items }}">
+                {% else %}
+                    {{ item.count_items }}
+                {% endif %}
+
             </td>
             <td>{{ item.dish.price }} грн.</td>
             <td id="total">{{ item.total_price }} грн.</td>
@@ -32,6 +39,11 @@
     <tr>
         <td colspan="3"><strong>Загальна ціна</strong></td>
         <td>{{ cart.total_price }} грн.</td>
+    </tr>
+    <tr>
+        <td colspan="4">{% if cart_active %}
+            <button class="btn btn-success" type="submit">Створити замовлення</button>
+        {% endif %}</td>
     </tr>
     </tbody>
 </table>

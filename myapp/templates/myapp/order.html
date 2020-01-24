@@ -18,65 +18,35 @@
                     <td>Дата:</td>
                     <td>{{ order.data_create }}</td>
                 </tr>
-                <tr id="status">
-                    {% include 'includes/order_item.html'  %}
-                </tr>
                 </tbody>
             </table>
-                <form method="post" id="formStatus">
-                    {% csrf_token %}
-                    <input type="button" data-order-id="{{ order.id }}" class="btn btn-success statusChange"
-                           value="Accept">
-                </form>
         </div>
         <div id="aside">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Назва</th>
-                    <th scope="col">Кількість</th>
-                    <th scope="col">Ціна</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                {% for item in order.order_item.all %}
-                    <tr>
-                        <td>{{ item }}</td>
-                        <td>{{ item.qty }}</td>
-                        <td>{{ item.dish.price }} грн.</td>
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <td colspan="2"><strong>Загальна ціна</strong></td>
-                    <td>{{ order.total_price }} грн.</td>
-                </tr>
-                </tbody>
-            </table>
+            {% include 'includes/order_table.html'  %}
         </div>
     </div>
 
 {% endblock %}
 
 
-{% block script %}
-    <script type="text/javascript">
-        $('body').on('click', ".statusChange", function (e){
-            var orderId = $(this).data('order-id');
-            $.ajax({
-                url: "{% url 'order_update' %}",
-                method: "POST",
-                data: {
-                    orderId: orderId,
-                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
-                },
-            }).done(function (response) {
-                $("#status td").remove();
-                $("#status").append(response);
-                $('#formStatus').remove();
-            }).fail(function (jqXHR, textStatus) {
-                console.log('error');
-            });
-        });
-    </script>
-{% endblock %}
+{#{% block script %}#}
+{#    <script type="text/javascript">#}
+{#        $('body').on('click', ".statusChange", function (e){#}
+{#            var orderId = $(this).data('order-id');#}
+{#            $.ajax({#}
+{#                url: "{% url 'order_update' %}",#}
+{#                method: "POST",#}
+{#                data: {#}
+{#                    orderId: orderId,#}
+{#                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()#}
+{#                },#}
+{#            }).done(function (response) {#}
+{#                $("#status td").remove();#}
+{#                $("#status").append(response);#}
+{#                $('#formStatus').remove();#}
+{#            }).fail(function (jqXHR, textStatus) {#}
+{#                console.log('error');#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#{% endblock %}#}

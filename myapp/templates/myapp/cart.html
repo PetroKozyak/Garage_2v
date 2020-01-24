@@ -4,15 +4,9 @@
     <form method="post" id="cartForm" action="{% url "order_create" %}">
 
         {% csrf_token %}
-        {% include 'includes/item_table.html'  %}
-        {% if request.user.profile.get_cart.active %}
-            <button class="btn btn-success" type="submit">Створити замовлення</button>
-        {% endif %}
+        {% include 'includes/item_table.html' %}
 
     </form>
-
-
-
 
 {% endblock %}
 

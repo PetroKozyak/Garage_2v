@@ -123,3 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), "static/")
+
+try:
+    from .local_settings import *
+except FileNotFoundError as e:
+    print(str(e))

@@ -84,15 +84,8 @@ class Order(models.Model):
     class Meta:
         db_table = "orders"
 
-    ORDERED = 1
-    PROCESSING = 2
-
-    status_choice = ((ORDERED, "Підтверджено"),
-                     (PROCESSING, "B обробці"),)
-
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="order")
     data_create = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=status_choice, default=PROCESSING)
     total_price = models.IntegerField()
 
     def __str__(self):
